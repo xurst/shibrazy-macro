@@ -9,6 +9,8 @@ from functions.client.discord.discord_handler import DiscordHandler
 from functions.client.checks import MessageChecker
 from functions.client.emulator import EmulatorHandler
 from core.client.key_system import KeySystem
+from core.client.security_checker import SecurityChecker
+from core.client.version_checker import VersionChecker
 import os
 from dotenv import load_dotenv
 
@@ -157,7 +159,19 @@ if __name__ == "__main__":
 
     create_default_env()
 
-    # Validate license before running
+    # Security check first
+    security = SecurityChecker()
+    if not security.verify_files():
+        input("\nPress Enter to exit...")
+        sys.exit(1)
+
+    # Version check - use appropriate type per project
+    version_checker = VersionChecker("dev")  # Change to "user" for template, "personal" for personal
+    if not version_checker.check_update():
+        input("\nPress Enter to exit...")
+        sys.exit(1)
+
+    # License check
     if validate_license():
         runner = MainRunner()
         runner.run()
