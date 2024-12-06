@@ -1,0 +1,15 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Python
+.idea
+
+# Environment & secrets
+*.env
+saved_key.json
+
+# OS files
+.DS_Store
+Thumbs.db
