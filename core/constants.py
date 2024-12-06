@@ -3,9 +3,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-# Discord bot authentication token for API access
-DISCORD_TOKEN = "OTg3NDI4NTI1NTQxODQyOTQ0.GzMARK.LnYtUK8-w1VIMk4vahbwzKB5LKV4DmIX_HYLdY"
-
 # Detailed server and channel configurations including webhooks and message filters
 SERVER_CONFIGS = {
     1186570213077041233: {

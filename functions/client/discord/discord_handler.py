@@ -1,11 +1,16 @@
 import discum
 from core.constants import *
+from dotenv import load_dotenv
+import os
 import time
 from discord import Webhook, Embed
 import aiohttp
 import asyncio
 from datetime import datetime
 import dateutil.parser
+
+load_dotenv()
+DISCORD_TOKEN = os.getenv('DISCORD_TOKEN')
 
 class DiscordHandler:
     def __init__(self):
