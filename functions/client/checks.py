@@ -22,10 +22,15 @@ class MessageChecker:
     def play_notification_sound(self):
         if PLAY_SOUND and self.sound_files:
             try:
-                sound_file = self.sound_files[0]  # Use the first sound file
-                pygame.mixer.music.load(sound_file)
-                pygame.mixer.music.set_volume(SOUND_VOLUME)  # Ensure volume is set before playing
-                pygame.mixer.music.play()
+                # Initialize the mixer if not already done
+                if not pygame.mixer.get_init():
+                    pygame.mixer.init()
+
+                # Loop through all sound files and play them
+                for sound_file in self.sound_files:
+                    sound = pygame.mixer.Sound(sound_file)  # Load each sound file
+                    sound.set_volume(SOUND_VOLUME)  # Set volume for the sound
+                    sound.play()  # Play the sound
             except Exception as e:
                 print(f"Error playing sound: {e}")
 

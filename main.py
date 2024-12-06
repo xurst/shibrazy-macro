@@ -9,6 +9,26 @@ from functions.client.discord.discord_handler import DiscordHandler
 from functions.client.checks import MessageChecker
 from functions.client.emulator import EmulatorHandler
 from core.client.key_system import KeySystem
+import os
+from dotenv import load_dotenv
+
+def create_default_env():
+    # Define the path to the .env file
+    env_path = os.path.join(os.path.dirname(__file__), '.env')
+
+    # Check if the .env file already exists
+    if not os.path.exists(env_path):
+        # Define the default content with only the DISCORD_TOKEN
+        default_env_content = "DISCORD_TOKEN="
+
+        try:
+            # Write the default content to the .env file
+            with open(env_path, 'w') as f:
+                f.write(default_env_content)
+            print(f".env file created at {env_path}")
+        except Exception as e:
+            # Handle any exceptions during file creation
+            print(f"\nError creating .env file: {e}")
 
 class MainRunner:
     def __init__(self):
@@ -126,7 +146,6 @@ def validate_license():
     print("\n❌ Maximum attempts reached. Please obtain a valid license key.")
     return False
 
-
 if __name__ == "__main__":
     if SEPARATE_TERMINAL:
         if not sys.argv[-1] == "CHILD_PROCESS":
@@ -135,6 +154,8 @@ if __name__ == "__main__":
             cmd = ['cmd', '/c', 'start', 'cmd', '/k', python_exe, script_path, 'CHILD_PROCESS']
             subprocess.run(cmd)
             sys.exit()
+
+    create_default_env()
 
     # Validate license before running
     if validate_license():
